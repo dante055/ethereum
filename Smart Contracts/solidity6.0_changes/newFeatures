@@ -1,0 +1,30 @@
+
+- now we can define structs and enums outside smart contract
+
+- u can have a file where u have all the sructs and u can import that file and use it
+
+- now we can return a struct from function
+
+
+pragma experimental ABIEncoderV2;
+
+function returnStruct() external returns(Payment memory) {
+        //cant return the Balance struct cause it contain mapping and ony libraries cant return it
+    }
+
+- return array
+
+	/*
+    function getPlayers() external view returns(address[] memory) {
+        //remember that while calling the whole array the execution cost will increase
+        return players;
+    }
+    */
+
+- casting address to payable
+
+	address a;
+	address payable b = payable(a);
+
+
+- try catch : if an error happen in a smart contract that u are calling 
