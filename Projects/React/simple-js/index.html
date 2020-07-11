@@ -1,0 +1,117 @@
+<!-- fake version of react: jusing js objects -->
+<html>
+  <head>
+    <style>
+      .board {
+        display: flex;
+        width: 600px;
+        height: 600px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: 30px;
+      }
+      .square {
+        height: 200px;
+        width: 200px;
+        box-sizing: border-box;
+        border: 5px solid black;
+        font-size: 5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .square:hover {
+        cursor: pointer;
+        background-color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="render-target"></div>
+    <script>
+      var gameState = {
+        PLAYER_ONE_SYMBOL: 'X',
+        PLAYER_TWO_SYMBOL: 'O',
+        currentTurn: 'X',
+        board: ['', '', '', '', '', '', '', '', '']
+      };
+
+      function render(state) {
+        document.querySelector('.render-target').innerHTML =
+          '<div class="board">' +
+          '<div class="square" data-square-id="0">' +
+          state.board[0] +
+          '</div>' +
+          '<div class="square" data-square-id="1">' +
+          state.board[1] +
+          '</div>' +
+          '<div class="square" data-square-id="2">' +
+          state.board[2] +
+          '</div>' +
+          '<div class="square" data-square-id="3">' +
+          state.board[3] +
+          '</div>' +
+          '<div class="square" data-square-id="4">' +
+          state.board[4] +
+          '</div>' +
+          '<div class="square" data-square-id="5">' +
+          state.board[5] +
+          '</div>' +
+          '<div class="square" data-square-id="6">' +
+          state.board[6] +
+          '</div>' +
+          '<div class="square" data-square-id="7">' +
+          state.board[7] +
+          '</div>' +
+          '<div class="square" data-square-id="8">' +
+          state.board[8] +
+          '</div>' +
+          '</div>';
+      }
+
+      render(gameState);
+
+      var board = document.querySelector('.render-target');
+      board.addEventListener('click', function(e) {
+        var squareIndex = parseInt(e.target.dataset['squareId'], 10);
+        gameState.board[squareIndex] = gameState.currentTurn;
+        gameState.currentTurn =
+          gameState.currentTurn === gameState.PLAYER_ONE_SYMBOL
+            ? gameState.PLAYER_TWO_SYMBOL
+            : gameState.PLAYER_ONE_SYMBOL;
+        render(gameState);
+        if (checkForWinner()) {
+          alert('Someone Won');
+        }
+      });
+
+      function checkForWinner() {
+        var symbols = gameState.board;
+        var winningCombos = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6]
+        ];
+        return winningCombos.find(function(combo) {
+          if (
+            symbols[combo[0]] === symbols[combo[1]] &&
+            symbols[combo[1]] === symbols[combo[2]]
+          ) {
+            return symbols[combo[0]];
+          } else {
+            return false;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<!-- con : it is rerendering everything including html -->
+<!-- react render optimall and minimal data that is needed -->
