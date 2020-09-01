@@ -1,2 +1,11 @@
+# dependencies
+Projects/**/node_modules
+
+
+# production
+Projects/**/build
+Projects/**/client/build
+
+# misc
 Projects/**/*.env
-Projects/**/*.env
+
