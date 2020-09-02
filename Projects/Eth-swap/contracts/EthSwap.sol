@@ -86,6 +86,7 @@ contract EthSwap {
 
     // users can sell tokens
     // user will do a delegate transfer (remember to approve the transfer first)
+    // decreaseAllowance in the front end when u have approved the transaction but u are unable to sell due to an error
     function sellTokens(bytes calldata _ticker,uint _amount) external tokenExist(_ticker) {
         address _tokenAddress = tokens[_ticker].tokenAddress;
         uint _conversionRate = tokens[_ticker].conversionRate;
@@ -101,10 +102,30 @@ contract EthSwap {
         emit SellTokens(msg.sender, _ticker, sellingAmount, _amount, _conversionRate);
     }
 
-    // admin can withDraw
-    function withdraw() external {
+    function shouldAllowSelling(bytes calldata _ticker, uint _amount) external view tokenExist(_ticker) returns(bool){
+        address _tokenAddress = tokens[_ticker].tokenAddress;
+        uint sellingAmount = _amount * tokens[_ticker].conversionRate;
 
+        require(IERC20(_tokenAddress).balanceOf(msg.sender) >= _amount, "You have insufficient funds to complete the transaction!");
+        require(address(this).balance > sellingAmount, "Contract have insufficient funds to buy this amount of token!");
+
+        return true;
     }
+
+    // admin can withDraw
+    function withdrawToken(bytes calldata _ticker, uint _amount) external tokenExist(_ticker) onlyAdmin(){
+        address _tokenAddress = tokens[_ticker].tokenAddress;
+
+        require(IERC20(_tokenAddress).balanceOf(address(this)) >= _amount, "Contract have insufficient supply of this types of tokens!");
+
+        IERC20(_tokenAddress).transfer(msg.sender, _amount);
+    }
+
+    function withdrawEth(uint _amount) external onlyAdmin(){
+        require(address(this).balance >= _amount, "Contract have insufficient sypply oth ether!");
+
+        msg.sender.transfer(_amount);
+    } 
 
     // ether balance of contract
     function balanceOf() external view returns (uint256) {
@@ -131,3 +152,4 @@ contract EthSwap {
         _;
     }
 }
+
