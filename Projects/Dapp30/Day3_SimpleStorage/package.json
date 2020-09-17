@@ -1,0 +1,26 @@
+{
+  "name": "Day3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "static-server public",
+    "build": "webpack --mode=development --entry ./public/app.js --output ./public/bundle.js",
+    "build:prod": "webpack --mode=production --entry ./public/app.js --output ./public/bundle.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "static-server": "^2.2.1",
+    "web3": "^1.2.11",
+    "webpack": "^4.43.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.12"
+  }
+}
