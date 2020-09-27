@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="shortcut icon" href="#" />
+    <script src="bundle.js"></script>
+    <title>Wallet</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Ether Wallet</h1>
+
+          <div class="card">
+            <div class="card-header">
+              <b>
+                Wallet Address : <span id="address"></span> <br />
+                Wallet Owner : <span id="owner"></span> <br />
+                Wallet Balance : <span id="balance"></span
+              ></b>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="card h-100">
+                <div class="card-header">
+                  Deposite
+                </div>
+                <div class="card-body">
+                  <form id="deposite">
+                    <div class="form-group row">
+                      <label for="deposite-amount" class="col-form-lable"
+                        >Amount (wei)</label
+                      >
+                      <input
+                        id="deposite-amount"
+                        type="number"
+                        min="0"
+                        oninput="validity.valid||(value='');"
+                        placeholder="amount"
+                        class="form-control"
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Submit
+                    </button>
+                  </form>
+                  <p id="deposite-result" class="pt-2"></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-7">
+              <div class="card h-100">
+                <div class="card-header">
+                  Transfer
+                </div>
+                <div class="card-body">
+                  <form id="transfer">
+                    <div class="form-group row">
+                      <label
+                        for="transfer-address"
+                        class="col-sm-2 col-form-lable"
+                        >Address</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          id="transfer-address"
+                          type="text"
+                          placeholder="address"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label
+                        for="transfer-amount"
+                        class="col-sm-2 col-form-lable"
+                        >Amount (wei)</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          id="transfer-amount"
+                          type="number"
+                          min="0"
+                          oninput="validity.valid||(value='');"
+                          placeholder="amount"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Submit
+                    </button>
+                  </form>
+                  <p id="transfer-result" class="pt-2"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
