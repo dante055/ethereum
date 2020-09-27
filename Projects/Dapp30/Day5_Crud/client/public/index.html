@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="shortcut icon" href="#" />
+    <script src="bundle.js"></script>
+    <title>Crud</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Crud</h1>
+          <div class="card">
+            <div class="card-body">
+              <form id="create">
+                <div class="form-group row">
+                  <label for="name" class="col-form-label"
+                    >Create new User</label
+                  >
+                  <input
+                    id="name"
+                    type="text"
+                    onkeypress="return (
+                      (event.charCode >= 65 && event.charCode <= 90) || 
+                      (event.charCode >= 97 && event.charCode <= 122) || 
+                      (event.charCode == 32)) ||
+                      (event.charCode == 13)"
+                    class="form-control"
+                    placeholder="Name"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p id="create-result" class="pt-2"></p>
+              </form>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="card">
+            <div class="card-body">
+              <form id="read">
+                <div class="form-group row">
+                  <label for="read-id" class="col-form-label">Read user</label>
+                  <input
+                    id="read-id"
+                    type="number"
+                    min="1"
+                    oninput="validity.valid||(value='');"
+                    class="form-control"
+                    placeholder="Id"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p id="read-result" class="pt-2"></p>
+              </form>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="card">
+            <div class="card-body">
+              <form id="read-all">
+                <div class="form-group row">
+                  <label class="col-form-lable">Read all Users</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p id="read-all-result" class="pt-2"></p>
+              </form>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="card">
+            <div class="card-body">
+              <form id="update">
+                <div class="form-group row">
+                  <label for="update-id" class="col-form-label col-sm-2"
+                    >Id</label
+                  >
+                  <div class="col-sm-6">
+                    <input
+                      id="update-id"
+                      type="number"
+                      min="1"
+                      oninput="validity.valid||(value='');"
+                      class="form-control"
+                      placeholder="Id"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="update-name" class="col-form-label col-sm-2"
+                    >New Name</label
+                  >
+                  <div class="col-sm-6">
+                    <input
+                      id="update-name"
+                      type="text"
+                      onkeypress="return (
+                      (event.charCode >= 65 && event.charCode <= 90) || 
+                      (event.charCode >= 97 && event.charCode <= 122) || 
+                      (event.charCode == 32)) ||
+                      (event.charCode == 13)"
+                      class="form-control"
+                      placeholder="Name"
+                    />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p id="update-result" class="pt-2"></p>
+              </form>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="card">
+            <div class="card-body">
+              <form id="delete">
+                <div class="form-group row">
+                  <label for="delete-id" class="col-form-label"
+                    >Delete user</label
+                  >
+                  <input
+                    id="delete-id"
+                    type="number"
+                    min="1"
+                    oninput="validity.valid||(value='');"
+                    class="form-control"
+                    placeholder="Id"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p id="delete-result" class="pt-2"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
