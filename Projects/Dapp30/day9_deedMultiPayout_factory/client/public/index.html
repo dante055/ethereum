@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- Include bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+
+    <!-- Include jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Include Date Range Picker -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"
+    />
+
+    <link rel="stylesheet" href="./app.css" />
+
+    <link rel="shortcut icon" href="#" />
+    <title>Deed MultiPayouts</title>
+    <script src="bundle.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Deed MultiPayouts</h1>
+
+          <div class="card">
+            <div class="card-header">
+              <b>
+                Deed Factory Address : <span id="deedFactoryAddress"></span>
+                <br />
+                Deed Factory Owner : <span id="deedFactoryOwner"></span> <br />
+                No of Deployed Deeds : <span id="deployedDeeds"></span>
+              </b>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="card">
+            <div class="card-header">
+              Create New Deed
+            </div>
+            <div class="card-body">
+              <form id="createDeed">
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <label for="lawyer">Lawyer Address</label>
+                  </div>
+                  <div class="col-sm-7">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="lawyer"
+                      placeholder="Lawyer Address"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <label for="beneficiary">Beneficiary Address</label>
+                  </div>
+                  <div class="col-sm-7">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="beneficiary"
+                      placeholder="Beneficiary Address"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <label for="deedValue">
+                      Total Value of Deed (wei)
+                    </label>
+                  </div>
+                  <div class="col-sm-7">
+                    <input
+                      type="number"
+                      min="1"
+                      oninput="validity.valid||(value='');"
+                      class="form-control"
+                      id="deedValue"
+                      placeholder="Amount to be Deposited in Deed"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <label for="earliestTransferTime"
+                      >Earliest Transfer time</label
+                    >
+                  </div>
+                  <div class="col-sm-7">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="earliestTransferTime"
+                      placeholder="YYY//MM/DD"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <label for="totalPayouts">Total Payouts </label>
+                  </div>
+                  <div class="col-sm-7">
+                    <input
+                      type="number"
+                      min="1"
+                      class="form-control"
+                      id="totalPayouts"
+                      placeholder="Total no of Payouts"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <label for="interval"> Payout Interval </label>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="intervalType"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            title="Interval Type"
+                          ></button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="intervalType"
+                          >
+                            <a
+                              class="dropdown-item"
+                              href="javascript:return false;"
+                              data-value="Days"
+                              data-placeholder="Enter no of days"
+                              >Days</a
+                            >
+                            <a
+                              class="dropdown-item"
+                              href="javascript:return false;"
+                              data-value="Months"
+                              data-placeholder="Enter no of months (Each month will have 30 days)"
+                              >Months</a
+                            >
+                            <a
+                              class="dropdown-item"
+                              href="javascript:return false;"
+                              data-value="Years"
+                              data-placeholder="Enter no of years (Each month will have 365 days)"
+                              >Years</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <input
+                        type="number"
+                        min="1"
+                        class="form-control"
+                        id="interval"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  Submit
+                </button>
+              </form>
+              <div id="createDeed-result" class="pt-2"></div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>Show All Deployed Deeds</h1>
+            </div>
+            <div id="deedDiv" class="col-sm-12"></div>
+          </div>
+
+          <hr />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $('#earliestTransferTime').datepicker({
+          format: 'yyyy/mm/dd',
+          orientation: 'right',
+          todayHighlight: true,
+          autoclose: true,
+        });
+
+        $('.dropdown-menu a').click(function () {
+          let $interval = document.getElementById('interval');
+          let $intervalType = document.getElementById('intervalType');
+          $intervalType.innerHTML = $(this).data('value');
+          $interval.setAttribute('placeholder', $(this).data('placeholder'));
+        });
+
+        $('.dropdown .dropdown-menu a')[0].click();
+      });
+    </script>
+  </body>
+</html>
