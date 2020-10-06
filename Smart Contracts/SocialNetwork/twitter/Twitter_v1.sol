@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.0;
+pragma experimental ABIEncoderV2;
 
 contract Twitter {
     enum LikeDislike {LIKE, DISLIKE}
@@ -12,6 +13,10 @@ contract Twitter {
         uint256 dislikes;
         uint256 retweets;
         uint256 timeStamp;
+
+        // cant return struct which has mapping inside it
+        // mapping(address => bool) userLike;
+        // mapping(address => bool) userDislike;
     }
     mapping(uint256 => Tweet) tweets;
     uint256 private tweetId = 1;
@@ -58,6 +63,7 @@ contract Twitter {
 
     function retweet(uint256 _tweetId) external tweetExist(_tweetId) {
         tweets[tweetId].retweetedFrom = tweets[_tweetId].from;
+        tweets[tweetId].retweets++;
         _tweet(tweets[_tweetId].tweet, msg.sender);
     }
 
@@ -126,8 +132,6 @@ contract Twitter {
             .blockUsers[_blockUser];
     }
 
-    function likeDislike() external {}
-
     // _toggleType: 0 - like; 1- dislike
     function toggleLikeDislike(uint256 _tweetId, uint256 _toggleType)
         external
@@ -164,7 +168,33 @@ contract Twitter {
         }
     }
 
-    function listTweets() external {}
+    // list last n tweets
+    function listLastNTweets(uint256 _no)
+        external
+        view
+        returns (Tweet[] memory)
+    {
+        Tweet[] memory _tweet;
+        for (uint256 i = tweetId; i > tweetId - _no; i--) {
+            if (tweets[i].id != 0) {
+                _tweet[_tweet.length] = tweets[i];
+            } else {
+                i++;
+            }
+        }
+        return _tweet;
+    }
+
+    // list all tweets
+    function listAllTweets() external view returns (Tweet[] memory) {
+        Tweet[] memory _tweet;
+        for (uint256 i = 1; i <= tweetId; i++) {
+            if (tweets[i].id != 0) {
+                _tweet[_tweet.length] = tweets[i];
+            }
+        }
+        return _tweet;
+    }
 
     function listFollowers() external view returns (uint256, address[] memory) {
         User storage _user = user[msg.sender];
