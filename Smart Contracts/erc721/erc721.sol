@@ -59,6 +59,8 @@ pragma solidity ^0.7.0;
 
 import "./AddressUtils.sol";
 
+// miniting, metata etension and enumeration extention  is not impelemted yet
+
 // functions in interface are abstract by default
 // abstract contract ERC721 {
 interface ERC721 {
@@ -115,9 +117,9 @@ interface ERC721 {
         returns (bool);
 }
 
-interface ERC165 {
-    function supportsInterface(bytes4 interfaceID) external view returns (bool);
-}
+// interface ERC165 {
+//     function supportsInterface(bytes4 interfaceID) external view returns (bool);
+// }
 
 // any contract that recievie erc721 token must implement this function
 interface ERC721TokenReceiver {
@@ -203,7 +205,11 @@ contract ERC721Token is ERC721 {
         address _to,
         uint256 _tokenId,
         bytes calldata data
-    ) external override payable {
+    ) public override payable {
+        require(
+            _isApprovedOrOwner(msg.sender, _tokenId),
+            "ERC721: transfer caller is not owner nor approved"
+        );
         _safeTransferFrom(_from, _to, _tokenId, data);
     }
 
@@ -212,7 +218,7 @@ contract ERC721Token is ERC721 {
         address _to,
         uint256 _tokenId
     ) external override payable {
-        _safeTransferFrom(_from, _to, _tokenId, "");
+        safeTransferFrom(_from, _to, _tokenId, "");
     }
 
     function transferFrom(
