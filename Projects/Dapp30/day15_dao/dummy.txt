@@ -1,0 +1,124 @@
+// const initialAccounts = [];
+// const accountsReducer = (state, action) => {
+//   switch (action.type) {
+//     case 'SET_ACCOUNTS':
+//       return action.accounts;
+//     case 'RESET':
+//       return initialState;
+//     default:
+//       return state;
+//   }
+// };
+
+// const [accounts, accountsDispatch] = useReducer(
+  //   accountsReducer,
+  //   initialAccounts
+  // );
+
+
+-------------
+
+import React, { useContext, useEffect } from 'react';
+import { Container, Spinner } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ContractContext } from '../../Context/ContractContext';
+import {
+  getAccounts,
+  getContract,
+  getWeb3,
+} from '../../utiliies/contractUtils';
+import { AlertComponent } from '../index';
+import { Navigation, Home, Create, Proposals, Proposal } from '../index';
+import CircularJSON from 'circular-json';
+
+function Load() {
+  const { loading, error, dispatch } = useContext(ContractContext);
+
+  useEffect(() => {
+    (async () => {
+      if (
+        //   !sessionStorage.getItem('web3') &&
+        !sessionStorage.getItem('contract')
+      ) {
+        try {
+          console.log('---------UseEfect: contract loading-----------');
+          const web3 = await getWeb3();
+          console.log(web3);
+          const contract = await getContract(web3);
+          const accounts = await getAccounts(web3);
+
+          dispatch({
+            type: 'LOADING_SUCCESSFULL',
+            web3: web3,
+            contract: contract,
+            accounts: accounts,
+          });
+
+          // await sessionStorage.setItem('web3', CircularJSON.stringify(web3));
+          sessionStorage.setItem('contract', CircularJSON.stringify(contract));
+        } catch (error) {
+          console.error(error);
+          dispatch({ type: 'LOADING_UNSUCCESSFULL', error: error });
+        }
+      } else {
+        try {
+          // const web3 = JSON.parse(sessionStorage.getItem('web3'));
+          // const web3 = await getWeb3();
+
+          const contract = JSON.parse(sessionStorage.getItem('contract'));
+          // const accounts = await getAccounts(web3);
+          dispatch({
+            type: 'LOADING_SUCCESSFULL',
+            web3: {},
+            contract: contract,
+            accounts: [],
+          });
+        } catch (error) {
+          dispatch({ type: 'LOADING_UNSUCCESSFULL', error: error });
+        }
+      }
+    })();
+
+    return () => {
+      // localStorage.clear();
+      localStorage.removeItem('name');
+    };
+  }, []);
+
+  //   console.log(loading, error);
+  // console.log('---------Load-----------');
+
+  return (
+    <Container className='mt-5 text-center'>
+      {loading ? (
+        <div className='d-flex justify-content-center'>
+          <h1 className='mr-2'>Loading</h1>
+          <Spinner className='mt-2' animation='border' />
+        </div>
+      ) : error?.heading ? (
+        <AlertComponent variant='danger' {...error} />
+      ) : (
+        <Router>
+          <Navigation />
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/create' component={Create} />
+            <Route path='/proposals' component={Proposals} />
+            <Route path='/proposal/:id' component={Proposal} />
+            <Route
+              component={() => (
+                <AlertComponent
+                  variant='danger'
+                  heading='Erro: 404'
+                  msg='Page not found!!'
+                />
+              )}
+            />
+          </Switch>
+        </Router>
+      )}
+    </Container>
+  );
+}
+
+export default Load;

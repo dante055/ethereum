@@ -1,0 +1,27 @@
+.proposalCard {
+  padding: 40px;
+  transition: transform 450ms;
+  text-align: left;
+  width: 22rem;
+}
+
+.proposalCard:hover {
+  transform: scale(1.08);
+}
+
+.proposalCard__recipient {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.proposalCard:hover .proposalCard__recipient {
+  text-overflow: initial;
+  white-space: normal;
+}
+
+@media (max-width: 576px) {
+  .proposalCard {
+    margin: 0 auto;
+  }
+}
