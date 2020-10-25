@@ -1,0 +1,15 @@
+.cardHeading {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.colLabel {
+  font-style: 'italic';
+  font-weight: bold;
+  color: grey;
+}
+
+.colDetail {
+  font-style: italic;
+  font-size: 15px;
+}

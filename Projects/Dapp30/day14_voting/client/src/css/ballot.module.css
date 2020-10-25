@@ -1,0 +1,13 @@
+.choiceList:hover {
+  color: white;
+  background-color: rgb(70, 56, 56);
+}
+
+.popover-basic {
+  color: white;
+  background-color: rgb(70, 56, 56);
+}
+
+.choiceMenu {
+  list-style: none;
+}
