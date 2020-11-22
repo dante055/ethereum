@@ -1,0 +1,24 @@
+
+// we can create ome oracalise logic whcih calls a fucntion on regular intervals and sets the price to the asset
+// and maintains the share cost acording to it
+
+// asset => will have shares => shares (will be represented by the erc20 tokens) => tokens/shares will be tradered on dexs
+
+// share price retate to the value at which u have bougth the asset
+
+// when u are buying the asset then mint the tokens of shares
+
+// share supply. share price
+
+// use dai to buy the shares as it is stable
+
+// transfer the asset to a ico contract so that it isnt hold by one person
+// successgull ico is when more that 50% share are sold
+
+
+// _assetValue will dertermine  how much stakes will this asset have,
+        // _data will include the other meta data,
+
+        // calulate the no of shares
+
+        // mint the token
