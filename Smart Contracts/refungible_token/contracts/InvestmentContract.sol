@@ -86,8 +86,9 @@ contract InvestmentContract is ERC20 {
         dai.transferFrom(msg.sender, address(this), _daiAmount);
         _mint(msg.sender, _nShare);
     }
-
+    
     // we can make the withdraw fuction such tat i can witdreaw immidiety or after investiom period is over
+    // we can alse set a tinme lock on the withdraw  function
     function withdrawProfits() external onlyOwner {
         require(block.timestamp > assetDetails.investmentEndTime);
         
