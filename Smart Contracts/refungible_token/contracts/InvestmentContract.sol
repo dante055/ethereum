@@ -3,7 +3,8 @@ pragma solidity >=0.7.0 <0.8.0;
 
 import ".././node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import ".././node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./AssetErc721.sol";
+import ".././node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol";
+// import "./AssetErc721.sol";
 
 // each assset will have its own set of erc20 token
 // so that one asset do not affet the othee
@@ -30,7 +31,7 @@ contract InvestmentContract is ERC20 {
     AssetDetails public assetDetails;
     
     uint256 public nftId;
-    Asset public nftAsset;
+    IERC721 public nftAsset;
 
     address daiAddress;
     IERC20 public dai = IERC20(daiAddress);
@@ -49,7 +50,7 @@ contract InvestmentContract is ERC20 {
         nftId = _nftId;
         assetDetails.shareSupply = _shareSupply;
         assetDetails.sharePrice = _sharePrice;
-        nftAsset = Asset(_ntfAddress);
+        nftAsset = IERC721(_ntfAddress);
     }
 
     // we can add the min amount for shares that have to sold in order for the sccess otherwise return the investors their money
@@ -105,11 +106,11 @@ contract InvestmentContract is ERC20 {
     }
 
     function getOwner() public view returns(address) {
-        return nftAsset.ownerOf(_tokenId);
+        return nftAsset.ownerOf(nftId);
     }
 
     modifier onlyOwner() {
-        require(msg.sender == nftAsset.ownerOf(_tokenId));
+        require(msg.sender == nftAsset.ownerOf(nftId));
         _;
     }
 }
