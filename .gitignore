@@ -1,11 +1,19 @@
 # dependencies
-Projects/**/node_modules
-
+.pnp.js
+node_modules/
 
 # production
-Projects/**/build
-Projects/**/client/build
+build/
 
 # misc
-Projects/**/*.env
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.firebase
 
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
