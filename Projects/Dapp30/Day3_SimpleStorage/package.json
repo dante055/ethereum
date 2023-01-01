@@ -18,9 +18,9 @@
   "dependencies": {
     "static-server": "^2.2.1",
     "web3": "^1.2.11",
-    "webpack": "^4.43.0"
+    "webpack": "^5.75.0"
   },
   "devDependencies": {
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^5.0.1"
   }
 }
